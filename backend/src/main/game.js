@@ -11,6 +11,14 @@ let wallSpaceWidth = oneBlockSize / blockLineWidth;
 let wallOffset = (oneBlockSize - wallSpaceWidth) / 2;
 let wallInnerColor = 'black';
 
+// define directions
+const DIRECTIONS = {
+    DIRECTION_RIGHT: 4,
+    DIRECTION_UP: 3,
+    DIRECTION_LEFT: 2,
+    DIRECTION_DOWN: 1
+};
+
 
 let createRect = (x, y, width, height, color) => {
     canvasContext.fillStyle = color;
