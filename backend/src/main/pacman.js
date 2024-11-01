@@ -2,21 +2,23 @@
  * Represents a Pacman character in the game.
  */
 class Pacman {
-    constructor(x, y, direction, speed, score) {
+    constructor(x, y, width, height, speed) {
         this.x = x;
         this.y = y;
+        this.score = score;
+        this.speed = speed;
         this.width = width;
         this.height = height;
-        this.direction = DIRECTIONS.DIRECTION_RIGHT;
-        this.newDirection = 4;
-        this.speed = speed;
         this.frameCount = 7;
-        this.score = score;
-        this.currentFrameCount = 4;
-        setInterval(() = > {
+        this.newDirection = 4;
+        this.currentFrameCount = 1;
+        this.direction = DIRECTIONS.DIRECTION_RIGHT;
+
+        setInterval(() => {
             this.changeAnimation();
         }, 1000);
     }
+
 
     eat() {
 
@@ -92,15 +94,59 @@ class Pacman {
     }
 
     checkCollisionWithGhost() {
+        let ifCollision = false;
+        if (
+              sampleBoard[this.getBoardY()][this.getBoardX()] === 1
+              || sampleBoard[this.getBoardYRightside()][this.getBoardX()] === 1
+              || sampleBoard(this.getBoardY())[this.getBoardXRightside()] === 1
+              || sampleBoard[this.getBoardYRightside()][this.getBoardXRightside()] === 1
+        ) {
+            return true;
+
+        }
+        return false;
 
     }
 
     changeAnimation() {
+        this.currentFrameCount = this.currentFrameCount ? 1 : this.currentFrameCount + 1;
+
 
     }
 
     draw() {
+        canvasContext.save();
+        canvasContext.translate(
+              this.x + oneBlockSize / 2,
+              this.y + oneBlockSize / 2
+        );
+        canvasContext.rotate((this.direction * 90 *  Math.PI) / 180);
+        canvasContext.translate(
+              -this.x - oneBlockSize / 2,
+              this.y + oneBlockSize / 2
+        );
+        canvasContext.restore();
 
     }
+
+    getBoardX() {
+        return parseInt(this.x / oneBlockSize);
+    }
+
+    getBoardY() {
+        return parseInt(this.y / oneBlockSize);
+    }
+
+
+    getBoardXRightside() {
+        const epsilon = 0.9999;
+        return parseInt((this.x + epsilon * oneBlockSize) / oneBlockSize);
+    }
+
+    getBoardYRightside() {
+        const epsilon = 0.9999;
+        return parseInt((this.y + epsilon * oneBlockSize) / oneBlockSize);
+    }
+
 
 }

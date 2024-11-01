@@ -67,12 +67,12 @@ let gameLoop = () => {
 }
 
 let update = () => {
-    //todo
+    pacman.movement();
 }
 let draw = () => {
     createRect(0, 0, canvas.width, canvas.height, "black");
-
     drawWallMatrix();
+    pacman.draw();
 };
 
 let gameLength = setInterval(gameLoop, 1000 / fps);
@@ -93,7 +93,7 @@ let drawWallMatrix = () => {
                     createRect(
                           j * oneBlockSize,
                           i * oneBlockSize + wallOffset,
-                          wallSpaceWidth + wallOffset, 
+                          wallSpaceWidth + wallOffset,
                           wallSpaceWidth,
                           wallInnerColor,
                     );
@@ -102,12 +102,12 @@ let drawWallMatrix = () => {
                     createRect(
                           j * oneBlockSize + wallOffset,
                           i * oneBlockSize + wallOffset,
-                          wallSpaceWidth + wallOffset, 
+                          wallSpaceWidth + wallOffset,
                           wallSpaceWidth,
                           wallInnerColor,
                     );
                 }
-                if (i > 0 && sampleBoard[i-1][j] === 1) {
+                if (i > 0 && sampleBoard[i - 1][j] === 1) {
                     createRect(
                           j * oneBlockSize + wallOffset,
                           i * oneBlockSize,
@@ -116,7 +116,7 @@ let drawWallMatrix = () => {
                           wallInnerColor,
                     );
                 }
-                if (i < sampleBoard.length - 1 && sampleBoard[i+1][j] === 1) {
+                if (i < sampleBoard.length - 1 && sampleBoard[i + 1][j] === 1) {
                     createRect(
                           j * oneBlockSize + wallOffset,
                           i * oneBlockSize + wallOffset,
@@ -128,5 +128,19 @@ let drawWallMatrix = () => {
             }
         }
     }
+
+
 };
+
+let createNewPacmanObj = () => {
+    pacman = new Pacman(
+          oneBlockSize,
+          oneBlockSize,
+          oneBlockSize,
+          oneBlockSize,
+          oneBlockSize / 5
+    );
+};
+
+createPacman();
 
