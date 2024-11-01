@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,8 +9,11 @@
 <body>
 <canvas id="canvas" width="1000" height="600"></canvas>
 <div style="display:none">
-    <img id="animations_id" src="frontend/app/assets/animations.gif" alt="">
-    <img ig="ghosts_id" src="frontend/app/assets/ghosts.png" alt="">
+    <img id="animations_id" src="/frontend/app/assets/animations.gif" alt="">
+    <img id="ghosts_id" src="/frontend/app/assets/ghosts.png" alt="">
 </div>
+<script src="/backend/src/main/ghost.js"></script>
+<script src="/backend/src/main/pacman.js"></script>
+<script src="/backend/src/main/game.js"></script>
 </body>
 </html>
