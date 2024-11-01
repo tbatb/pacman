@@ -55,7 +55,7 @@ let gameLoop = () => {
     draw();
 }
 
-let update = () = {
+let update= () => {
     //todo
 }
 let draw = () => {
@@ -68,7 +68,11 @@ let drawBoard = () => {
     for (let i = 0; i < sampleBoard.length; i++) {
         for (let j = 0; j < sampleBoard[0].length; j++) {
             if (sampleBoard[i][j] === 1) {
-                createRect(j * oneBlockSize, i * oneBlockSize, oneBlockSize, oneBlockSize, wallColor);
+                createRect(j * oneBlockSize,
+                    i * oneBlockSize,
+                    oneBlockSize,
+                    oneBlockSize,
+                    wallColor);
             }
         }
     }
