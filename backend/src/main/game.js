@@ -1,31 +1,43 @@
+// Canvas and Context
 const canvas = document.getElementById("canvas");
 const canvasContext = canvas.getContext("2d");
-const pacmanFrames = document.getElementById('animations');
-const ghostFrames = document.getElementById('ghosts');
+const pacmanFrames = document.getElementById("animations");
+const ghostFrames = document.getElementById("ghosts");
 
-let fps = 30;
-let oneBlockSize = 20;
-let wallColor = '#342DCA';
-let blockLineWidth = 2;
-let wallSpaceWidth = oneBlockSize / blockLineWidth;
-let wallOffset = (oneBlockSize - wallSpaceWidth) / 2;
-let wallInnerColor = 'black';
-
-// define directions
-const DIRECTIONS = {
-    DIRECTION_RIGHT: 4,
-    DIRECTION_UP: 3,
-    DIRECTION_LEFT: 2,
-    DIRECTION_DOWN: 1
-};
-
-
+// Utility Function
 let createRect = (x, y, width, height, color) => {
     canvasContext.fillStyle = color;
     canvasContext.fillRect(x, y, width, height);
 };
 
-let sampleBoard = [
+// Direction Constants
+const DIRECTION_RIGHT = 4;
+const DIRECTION_UP = 3;
+const DIRECTION_LEFT = 2;
+const DIRECTION_DOWN = 1;
+
+// Game Variables
+let fps = 30;
+let pacman;
+let ghosts = [];
+let ghostCount = 4;
+let pacmanLives = 3;
+let ghostImageLocation = [
+    { x: 0, y: 0 },
+    { x: 176, y: 0 },
+    { x: 0, y: 121 },
+    { x: 176, y: 121 },
+];
+let oneBlockSize = 20;
+let wallColor = '#342DCA';
+let blockLineWidth = 1.6;
+let wallSpaceWidth = oneBlockSize / blockLineWidth;
+let wallOffset = (oneBlockSize - wallSpaceWidth) / 2;
+let wallInnerColor = "black";
+let score = 0;
+
+// Map Definition (23 rows x 21 columns)
+let matrix = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
     [1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1],
@@ -51,96 +63,15 @@ let sampleBoard = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
 
+// Define random targets for ghosts
+let randomTargetsForGhosts = [
+    { x: 1 * oneBlockSize, y: 1 * oneBlockSize },
+    { x: 1 * oneBlockSize, y: (matrix.length - 2) * oneBlockSize },
+    { x: (matrix[0].length - 2) * oneBlockSize, y: oneBlockSize },
+    {
+        x: (matrix[0].length - 2) * oneBlockSize,
+        y: (matrix.length - 2) * oneBlockSize,
+    },
+];
 
-let createPacman = () => {
-    pacman = new Pacman(
-          oneBlockSize,
-          oneBlockSize,
-          oneBlockSize,
-          oneBlockSize / 5
-    );
-};
-
-let gameLoop = () => {
-    update();
-    draw();
-}
-
-let update = () => {
-    pacman.movement();
-}
-let draw = () => {
-    createRect(0, 0, canvas.width, canvas.height, "black");
-    drawWallMatrix();
-    pacman.draw();
-};
-
-let gameLength = setInterval(gameLoop, 1000 / fps);
-
-let drawWallMatrix = () => {
-    for (let i = 0; i < sampleBoard.length; i++) {
-        for (let j = 0; j < sampleBoard[0].length; j++) {
-            if (sampleBoard[i][j] === 1) {
-                createRect(
-                      j * oneBlockSize,
-                      i * oneBlockSize,
-                      oneBlockSize,
-                      oneBlockSize,
-                      wallColor
-                );
-
-                if (j > 0 && sampleBoard[i][j - 1] === 1) {
-                    createRect(
-                          j * oneBlockSize,
-                          i * oneBlockSize + wallOffset,
-                          wallSpaceWidth + wallOffset,
-                          wallSpaceWidth,
-                          wallInnerColor,
-                    );
-                }
-                if (j < sampleBoard[0].length - 1 && sampleBoard[i][j + 1] === 1) {
-                    createRect(
-                          j * oneBlockSize + wallOffset,
-                          i * oneBlockSize + wallOffset,
-                          wallSpaceWidth + wallOffset,
-                          wallSpaceWidth,
-                          wallInnerColor,
-                    );
-                }
-                if (i > 0 && sampleBoard[i - 1][j] === 1) {
-                    createRect(
-                          j * oneBlockSize + wallOffset,
-                          i * oneBlockSize,
-                          wallSpaceWidth,
-                          wallSpaceWidth + wallOffset,
-                          wallInnerColor,
-                    );
-                }
-                if (i < sampleBoard.length - 1 && sampleBoard[i + 1][j] === 1) {
-                    createRect(
-                          j * oneBlockSize + wallOffset,
-                          i * oneBlockSize + wallOffset,
-                          wallSpaceWidth,
-                          wallSpaceWidth + wallOffset,
-                          wallInnerColor,
-                    );
-                }
-            }
-        }
-    }
-
-
-};
-
-let createNewPacmanObj = () => {
-    pacman = new Pacman(
-          oneBlockSize,
-          oneBlockSize,
-          oneBlockSize,
-          oneBlockSize,
-          oneBlockSize / 5
-    );
-};
-
-createPacman();
 
