@@ -1,19 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yellow Headed Man</title>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Yellow Headed Man game</title>
 </head>
 <body>
-<canvas id="canvas" width="500" height="500"></canvas>
-<div style="display:none">
-    <img id="animations" src="/frontend/app/assets/animations.gif" alt="">
-    <img id="ghosts" src="/frontend/app/assets/ghosts.png" alt="">
+<canvas id="canvas" width="2000" height="2000"></canvas>
+<div style="display:block">
+      <img id="animations" src="../assets/animations.gif" alt="">
+      <img id="ghosts" src="../assets/ghosts.png" alt="">
 </div>
-<script src="/backend/src/main/ghost.js"></script>
-<script src="/backend/src/main/pacman.js"></script>
-<script src="/backend/src/main/game.js"></script>
+<script type="module" src="../config.js">
+
+</script>
+<script src="../../../backend/src/main/ghost.js">
+
+</script>
+<script src="../../../backend/src/main/pacman.js">
+
+</script>
+<script src="../../../backend/src/main/game.js">
+
+</script>
 </body>
 </html>
